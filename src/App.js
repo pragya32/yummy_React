@@ -1,9 +1,23 @@
-import logo from "./logo.svg";
+import React, { useEffect } from "react";
 import "./App.css";
 const App = () => {
   const APP_ID = "5c4cbbbf";
   const APP_KEY = "74de8b23ec4cd6c8d7f53c9d6e932b31";
-  const Requrl = `https://api.edamam.com/search?q=chicken&app_id=${APP_ID}&app_key=${APP_KEY}`;
+
+  const [recipies, setRecipies] = useState([]);
+
+  useEffect(() => {
+    getRecepies();
+  }, []);
+
+  const getRecepies = async () => {
+    const response = await fetch(
+      `https://api.edamam.com/search?q=chicken&app_id=${APP_ID}&app_key=${APP_KEY}`
+    );
+    const data = await response.json();
+    setRecipies(data.hits);
+  };
+
   return (
     <div className="App">
       <form className="search-form">
