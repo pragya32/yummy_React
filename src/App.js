@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import Recipie from "./Recipie";
 import "./App.css";
 const App = () => {
   const APP_ID = "5c4cbbbf";
@@ -16,6 +17,7 @@ const App = () => {
     );
     const data = await response.json();
     setRecipies(data.hits);
+    console.log(data.hits);
   };
 
   return (
@@ -26,6 +28,13 @@ const App = () => {
           Search
         </button>
       </form>
+      {recipies.map((recipe) => (
+        <Recipie
+          title={recipe.recipe.label}
+          calories={recipe.recipe.calories}
+          image={recipe.recipe.image}
+        />
+      ))}
     </div>
   );
 };
