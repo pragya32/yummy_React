@@ -1,12 +1,19 @@
 import logo from "./logo.svg";
 import "./App.css";
-
-function App() {
+const App = () => {
+  const APP_ID = "5c4cbbbf";
+  const APP_KEY = "74de8b23ec4cd6c8d7f53c9d6e932b31";
+  const Requrl = `https://api.edamam.com/search?q=chicken&app_id=${APP_ID}&app_key=${APP_KEY}`;
   return (
     <div className="App">
-      <h1>hey</h1>
+      <form className="search-form">
+        <input className="search-bar" type="text"></input>
+        <button className="search-button" type="submit">
+          Search
+        </button>
+      </form>
     </div>
   );
-}
+};
 
 export default App;
