@@ -6,30 +6,45 @@ const App = () => {
   const APP_KEY = "74de8b23ec4cd6c8d7f53c9d6e932b31";
 
   const [recipies, setRecipies] = useState([]);
-
+  const [search, setSearch] = useState("");
+  const [query, setQuery] = useState("chicken");
   useEffect(() => {
     getRecepies();
-  }, []);
+  }, [query]);
 
   const getRecepies = async () => {
     const response = await fetch(
-      `https://api.edamam.com/search?q=chicken&app_id=${APP_ID}&app_key=${APP_KEY}`
+      `https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}`
     );
     const data = await response.json();
     setRecipies(data.hits);
     console.log(data.hits);
   };
 
+  const update = (e) => {
+    setSearch(e.target.value);
+  };
+
+  const getSearch = (e) => {
+    e.preventDefault();
+    setQuery(search);
+  };
   return (
     <div className="App">
-      <form className="search-form">
-        <input className="search-bar" type="text"></input>
+      <form onSubmit={getSearch} className="search-form">
+        <input
+          className="search-bar"
+          type="text"
+          value={search}
+          onChange={update}
+        />
         <button className="search-button" type="submit">
           Search
         </button>
       </form>
       {recipies.map((recipe) => (
         <Recipie
+          key={recipe.recipe.label}
           title={recipe.recipe.label}
           calories={recipe.recipe.calories}
           image={recipe.recipe.image}
